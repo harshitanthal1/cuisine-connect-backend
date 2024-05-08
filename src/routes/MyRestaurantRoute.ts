@@ -10,9 +10,23 @@ const storage = multer.memoryStorage();
 const upload = multer({
   storage: storage,
   limits: {
-    fileSize: 10 * 1024 * 1024, //10mb 
+    fileSize: 10 * 1024 * 1024, //10mb
   },
 });
+
+router.get(
+  "/order",
+  jwtCheck,
+  jwtParse,
+  MyRestaurantController.getMyRestaurantOrders
+);
+
+router.patch(
+  "/order/:orderId/status",
+  jwtCheck,
+  jwtParse,
+  MyRestaurantController.updateOrderStatus
+);
 
 router.get("/", jwtCheck, jwtParse, MyRestaurantController.getMyRestaurant);
 
